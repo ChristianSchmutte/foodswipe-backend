@@ -9,7 +9,6 @@ import {
   ParseIntPipe,
   ValidationPipe,
   UsePipes,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { MealsService } from './meals.service';
 import { CreateMealDto } from './dto/create-meal.dto';
@@ -20,7 +19,7 @@ import { Meal } from './entities/meal.entity';
 export class MealsController {
   constructor(private readonly mealsService: MealsService) {}
 
-  @Post('')
+  @Post()
   @UsePipes(ValidationPipe)
   create(@Body() createMealDto: CreateMealDto): Promise<Meal> {
     return this.mealsService.create(createMealDto);

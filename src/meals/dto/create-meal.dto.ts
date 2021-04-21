@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
 export class CreateMealDto {
   @IsNotEmpty()
