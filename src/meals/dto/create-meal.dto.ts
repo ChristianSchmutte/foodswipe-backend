@@ -1,5 +1,9 @@
 import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
 export class CreateMealDto {
+  @IsNotEmpty()
+  @IsNumber()
+  restaurantId: number;
+
   @IsString()
   @IsNotEmpty()
   name: string;

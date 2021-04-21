@@ -18,6 +18,6 @@ export class Meal extends BaseEntity {
   @Column()
   image_url: string;
 
-  // @ManyToOne(() => Restaurant, (r) => r.meals, { eager: false })
-  // restaurant: Restaurant;
+  @ManyToOne(() => Restaurant, (r) => r.meals, { eager: false })
+  restaurant: Restaurant;
 }
