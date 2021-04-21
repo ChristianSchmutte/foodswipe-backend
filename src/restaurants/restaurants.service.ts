@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
+import { RestaurantCredentialsDto } from './dto/restaurant-credentials.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
 import { RestaurantRepository } from './restaurant.repository';
@@ -15,12 +16,15 @@ export class RestaurantsService {
     return this.restaurantRepository.register(createRestaurantDto);
   }
 
-  login() {
-    return `This logs in`;
+  login(credentialsDto: RestaurantCredentialsDto): Promise<Restaurant> {
+    return this.restaurantRepository.login(credentialsDto);
   }
 
-  update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
-    return `This action updates a #${id} restaurant`;
+  update(
+    id: number,
+    updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<Restaurant> {
+    return this.restaurantRepository.updateRestaurant(id, updateRestaurantDto);
   }
 
   remove(id: number) {

@@ -9,7 +9,7 @@ import { MealRepository } from './meal-repository';
 export class MealsService {
   constructor(
     @InjectRepository(MealRepository)
-    private mealRepository: MealRepository,
+    private readonly mealRepository: MealRepository,
   ) {}
 
   create(createMealDto: CreateMealDto): Promise<Meal> {

@@ -1,11 +1,13 @@
 import {
   ConflictException,
   InternalServerErrorException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { RestaurantCredentialsDto } from './dto/restaurant-credentials.dto';
+import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
 
 @EntityRepository(Restaurant)
@@ -38,5 +40,24 @@ export class RestaurantRepository extends Repository<Restaurant> {
       throw new UnauthorizedException('Invalid Credentials');
     }
     return user;
+  }
+
+  async updateRestaurant(
+    id: number,
+    updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<Restaurant> {
+    const updatedRestaurant = await Restaurant.findOne({ id });
+
+    if (!updatedRestaurant)
+      throw new NotFoundException(`Could not find restaurant with id ${id}`);
+
+    const keys = Object.keys(updatedRestaurant);
+    keys.forEach((key) => {
+      updatedRestaurant[key] = updateRestaurantDto[key]
+        ? updateRestaurantDto[key]
+        : updatedRestaurant[key];
+    });
+    await updatedRestaurant.save();
+    return updatedRestaurant;
   }
 }

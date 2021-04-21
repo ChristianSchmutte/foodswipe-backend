@@ -12,6 +12,8 @@ import {
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import { Restaurant } from './entities/restaurant.entity';
+import { RestaurantCredentialsDto } from './dto/restaurant-credentials.dto';
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -19,13 +21,15 @@ export class RestaurantsController {
 
   @Post('register')
   @UsePipes(ValidationPipe)
-  register(@Body() createRestaurantDto: CreateRestaurantDto) {
+  register(
+    @Body() createRestaurantDto: CreateRestaurantDto,
+  ): Promise<Restaurant> {
     return this.restaurantsService.register(createRestaurantDto);
   }
 
   @Post('login')
-  login() {
-    return this.restaurantsService.login();
+  login(@Body() credentialsDto: RestaurantCredentialsDto) {
+    return this.restaurantsService.login(credentialsDto);
   }
 
   @Patch(':id')
