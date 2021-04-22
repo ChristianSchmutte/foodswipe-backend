@@ -20,14 +20,14 @@ export class RestaurantsService {
     return this.restaurantRepository.login(credentialsDto);
   }
 
-  update(
+  async update(
     id: number,
     updateRestaurantDto: UpdateRestaurantDto,
   ): Promise<Restaurant> {
     return this.restaurantRepository.updateRestaurant(id, updateRestaurantDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} restaurant`;
+  async deleteRestaurant(id: number): Promise<void> {
+    return this.restaurantRepository.deleteRestaurant(id);
   }
 }

@@ -2,6 +2,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { CreateMealDto } from './dto/create-meal.dto';
 import { UpdateMealDto } from './dto/update-meal.dto';
@@ -9,13 +10,16 @@ import { Meal } from './entities/meal.entity';
 
 @EntityRepository(Meal)
 export class MealRepository extends Repository<Meal> {
-  async createMeal(createDto: CreateMealDto): Promise<Meal> {
+  async createMeal(
+    createDto: CreateMealDto,
+    restaurant: Restaurant,
+  ): Promise<Meal> {
     const newMeal = new Meal();
     newMeal.name = createDto.name;
     newMeal.description = createDto.description;
     newMeal.price = createDto.price;
     newMeal.image_url = createDto.image_url;
-
+    newMeal.restaurant = restaurant;
     try {
       await newMeal.save();
       return newMeal;
@@ -28,8 +32,8 @@ export class MealRepository extends Repository<Meal> {
   async getMeals(): Promise<Meal[]> {
     // TODO: query builder
     // TODO: Error Handling
-    const meals = await Meal.find();
-
+    const meals = await Meal.find({ loadEagerRelations: true });
+    console.log(meals);
     return meals;
   }
 

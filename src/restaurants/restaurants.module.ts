@@ -9,5 +9,6 @@ import { RestaurantRepository } from './restaurant.repository';
   imports: [TypeOrmModule.forFeature([Restaurant])],
   controllers: [RestaurantsController],
   providers: [RestaurantsService, RestaurantRepository],
+  exports: [RestaurantsService, RestaurantRepository],
 })
 export class RestaurantsModule {}

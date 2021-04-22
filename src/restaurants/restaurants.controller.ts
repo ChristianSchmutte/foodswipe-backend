@@ -42,6 +42,6 @@ export class RestaurantsController {
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
-    return this.restaurantsService.remove(+id);
+    return this.restaurantsService.deleteRestaurant(id);
   }
 }

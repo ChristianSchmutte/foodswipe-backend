@@ -39,6 +39,7 @@ export class RestaurantRepository extends Repository<Restaurant> {
     if (!user || user.password !== password) {
       throw new UnauthorizedException('Invalid Credentials');
     }
+    console.log(user.meals);
     return user;
   }
 
@@ -59,5 +60,21 @@ export class RestaurantRepository extends Repository<Restaurant> {
     });
     await updatedRestaurant.save();
     return updatedRestaurant;
+  }
+  async getById(id: number): Promise<Restaurant> {
+    // Should not be directly accessible to controllers, will be replaced by Auth mechanism
+    const restaurant = await Restaurant.findOne({ id });
+
+    if (!restaurant) throw new UnauthorizedException();
+
+    return restaurant;
+  }
+
+  async deleteRestaurant(id: number): Promise<void> {
+    const { affected } = await Restaurant.delete({ id });
+
+    if (affected === 0) {
+      throw new NotFoundException(`Could not find restarant with id ${id}`);
+    }
   }
 }
