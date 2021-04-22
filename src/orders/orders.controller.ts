@@ -10,6 +10,7 @@ import {
   ValidationPipe,
   ParseIntPipe,
   Query,
+  Res,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -64,7 +65,7 @@ export class OrdersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+  async cancelOrder(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.ordersService.cancelOrder(id);
   }
 }

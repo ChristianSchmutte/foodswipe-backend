@@ -45,7 +45,7 @@ export class OrdersService {
     return this.orderRepository.updateOrderStatus(updateOrderDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  async cancelOrder(id: number): Promise<void> {
+    return this.orderRepository.cancelOrder(id);
   }
 }

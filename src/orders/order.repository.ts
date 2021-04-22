@@ -96,4 +96,19 @@ export class OrderRepository extends Repository<Order> {
       throw new InternalServerErrorException('Internal Server Error');
     }
   }
+
+  async cancelOrder(id: number): Promise<void> {
+    const order = await Order.findOne(id);
+
+    if (!order)
+      throw new NotFoundException(`Could not find order with id: ${id}`);
+
+    order.status = OrderStatus.CANCELED;
+
+    try {
+      await order.save();
+    } catch (error) {
+      throw new InternalServerErrorException('Internal Server Error');
+    }
+  }
 }
