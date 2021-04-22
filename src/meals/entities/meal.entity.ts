@@ -1,9 +1,11 @@
+import { Order } from 'src/orders/entities/order.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import {
   BaseEntity,
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -26,4 +28,7 @@ export class Meal extends BaseEntity {
 
   @ManyToOne(() => Restaurant, (r) => r.meals, { eager: false })
   restaurant: Restaurant;
+
+  @OneToMany(() => Order, (o) => o.meal, { eager: false })
+  orders: Order;
 }

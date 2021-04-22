@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MealsModule } from './meals/meals.module';
 import { RestaurantsModule } from './restaurants/restaurants.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

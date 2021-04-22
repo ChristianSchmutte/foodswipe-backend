@@ -1,4 +1,10 @@
-import { IsEmail, IsLatitude, IsLongitude, IsNotEmpty, IsOptional } from 'class-validator';
+import {
+  IsEmail,
+  IsLatitude,
+  IsLongitude,
+  IsNotEmpty,
+  IsOptional,
+} from 'class-validator';
 
 export class UpdateRestaurantDto {
   @IsOptional()

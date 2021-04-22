@@ -1,4 +1,5 @@
 import { Meal } from 'src/meals/entities/meal.entity';
+import { Order } from 'src/orders/entities/order.entity';
 import {
   BaseEntity,
   Column,
@@ -29,4 +30,7 @@ export class Restaurant extends BaseEntity {
 
   @OneToMany(() => Meal, (m) => m.restaurant, { eager: true })
   meals: Meal[];
+
+  @OneToMany(() => Order, (o) => o.restaurant, { eager: false })
+  orders: Order[];
 }
