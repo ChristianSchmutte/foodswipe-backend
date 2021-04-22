@@ -31,10 +31,13 @@ export class Order extends BaseEntity {
   customer_street_nr: number;
 
   @Column({ type: 'int', nullable: false })
-  customer_zip: number;
+  customer_zip: string;
 
   @Column({ nullable: false })
   customer_city: string;
+
+  @Column({ nullable: true })
+  comments: string;
 
   @ManyToOne(() => Meal, (m) => m.orders, { eager: true })
   meal: Meal;

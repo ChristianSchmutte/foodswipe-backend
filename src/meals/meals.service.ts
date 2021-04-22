@@ -1,12 +1,10 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { RestaurantRepository } from 'src/restaurants/restaurant.repository';
-import { RestaurantsService } from 'src/restaurants/restaurants.service';
 import { CreateMealDto } from './dto/create-meal.dto';
 import { UpdateMealDto } from './dto/update-meal.dto';
 import { Meal } from './entities/meal.entity';
-import { MealRepository } from './meal-repository';
+import { MealRepository } from './meal.repository';
 
 @Injectable()
 export class MealsService {

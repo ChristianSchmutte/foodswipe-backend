@@ -26,7 +26,7 @@ export class Meal extends BaseEntity {
   @Column()
   image_url: string;
 
-  @ManyToOne(() => Restaurant, (r) => r.meals, { eager: false })
+  @ManyToOne(() => Restaurant, (r) => r.meals, { eager: true })
   restaurant: Restaurant;
 
   @OneToMany(() => Order, (o) => o.meal, { eager: false })

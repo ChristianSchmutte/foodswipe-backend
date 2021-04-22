@@ -33,13 +33,11 @@ export class MealRepository extends Repository<Meal> {
     // TODO: query builder
     // TODO: Error Handling
     const meals = await Meal.find({ loadEagerRelations: true });
-    console.log(meals);
     return meals;
   }
 
   async getMealById(id: number): Promise<Meal> {
     const meal = await Meal.findOne({ id });
-
     if (!meal) throw new NotFoundException(`Could not find meal with id:${id}`);
 
     return meal;

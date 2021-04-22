@@ -28,7 +28,7 @@ export class Restaurant extends BaseEntity {
   @Column({ type: 'float' })
   longitude: number;
 
-  @OneToMany(() => Meal, (m) => m.restaurant, { eager: true })
+  @OneToMany(() => Meal, (m) => m.restaurant, { eager: false })
   meals: Meal[];
 
   @OneToMany(() => Order, (o) => o.restaurant, { eager: false })

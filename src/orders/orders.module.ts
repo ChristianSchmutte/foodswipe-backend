@@ -3,11 +3,22 @@ import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
+import { OrderRepository } from './order.repository';
+import { MealsModule } from 'src/meals/meals.module';
+import { MealsService } from 'src/meals/meals.service';
+import { MealRepository } from 'src/meals/meal.repository';
+import { RestaurantsModule } from 'src/restaurants/restaurants.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Order])],
+  imports: [TypeOrmModule.forFeature([Order]), MealsModule, RestaurantsModule],
   controllers: [OrdersController],
-  providers: [OrdersService],
+  providers: [
+    OrdersService,
+    OrderRepository,
+    MealsService,
+    MealRepository,
+    RestaurantsModule,
+  ],
   exports: [OrdersService],
 })
 export class OrdersModule {}
