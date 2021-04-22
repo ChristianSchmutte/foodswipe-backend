@@ -41,8 +41,8 @@ export class OrdersService {
     return `This action returns a #${id} order`;
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  update(updateOrderDto: UpdateOrderDto) {
+    return this.orderRepository.updateOrderStatus(updateOrderDto);
   }
 
   remove(id: number) {

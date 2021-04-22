@@ -1,10 +1,14 @@
-import { InternalServerErrorException } from '@nestjs/common';
-import { stat } from 'node:fs';
+import {
+  InternalServerErrorException,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Meal } from 'src/meals/entities/meal.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { FilterOrderDto } from './dto/filter-order.dto';
+import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
 import { OrderStatus } from './order-status.enum';
 
@@ -68,6 +72,26 @@ export class OrderRepository extends Repository<Order> {
     try {
       const orders = await query.getMany();
       return orders;
+    } catch (error) {
+      throw new InternalServerErrorException('Internal Server Error');
+    }
+  }
+
+  async updateOrderStatus(updateOrderDto: UpdateOrderDto): Promise<Order> {
+    const { id, status, restaurantId } = updateOrderDto;
+    const orderUpdated = await Order.findOne({ id });
+    const restaurant = await orderUpdated.restaurant;
+
+    if (!orderUpdated)
+      throw new NotFoundException(`could not find order with id: ${id}`);
+    if (restaurant.id !== restaurantId)
+      throw new UnauthorizedException('Restaurant must be owner of order');
+
+    orderUpdated.status = status;
+
+    try {
+      await orderUpdated.save();
+      return orderUpdated;
     } catch (error) {
       throw new InternalServerErrorException('Internal Server Error');
     }

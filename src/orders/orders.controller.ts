@@ -50,9 +50,17 @@ export class OrdersController {
     return this.ordersService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
+  @Patch()
+  update(
+    @Query('status', ValidationPipe) status: OrderStatus,
+    @Query('restaurantId', ParseIntPipe) restaurantId: number,
+    @Query('id', ParseIntPipe) id: number,
+  ) {
+    const updateOrderDto = new UpdateOrderDto();
+    updateOrderDto.status = status;
+    updateOrderDto.id = id;
+    updateOrderDto.restaurantId = restaurantId;
+    return this.ordersService.update(updateOrderDto);
   }
 
   @Delete(':id')
