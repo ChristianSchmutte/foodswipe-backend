@@ -20,6 +20,7 @@ export class MealRepository extends Repository<Meal> {
     newMeal.price = createDto.price;
     newMeal.image_url = createDto.image_url;
     newMeal.restaurant = restaurant;
+    newMeal.tags = createDto.tags ? createDto.tags : [];
     try {
       await newMeal.save();
       return newMeal;
@@ -68,6 +69,10 @@ export class MealRepository extends Repository<Meal> {
     updatedMeal.image_url = updateMealDto.image_url
       ? updateMealDto.image_url
       : updatedMeal.image_url;
+
+    updatedMeal.tags = updateMealDto.tags
+      ? updateMealDto.tags
+      : updatedMeal.tags;
 
     try {
       await updatedMeal.save();

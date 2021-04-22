@@ -1,5 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  IsUrl,
+} from 'class-validator';
+import { Tag } from 'src/tags/entities/tag.entity';
 export class CreateMealDto {
   @IsNotEmpty()
   @IsNumber()
@@ -18,6 +26,9 @@ export class CreateMealDto {
   price: number;
 
   @IsString()
-  // @IsUrl()
+  // @IsUrl() // TODO: when img upload works
   image_url: string;
+
+  @IsOptional()
+  tags: Tag[];
 }

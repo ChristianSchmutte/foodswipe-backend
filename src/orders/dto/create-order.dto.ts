@@ -6,6 +6,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { Tag } from 'src/tags/entities/tag.entity';
 export class CreateOrderDto {
   @IsNotEmpty()
   @IsNumber()
@@ -44,4 +45,7 @@ export class CreateOrderDto {
   @IsString()
   @MaxLength(200)
   comments: string;
+
+  @IsOptional()
+  tags: Tag[];
 }
