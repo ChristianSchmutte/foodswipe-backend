@@ -8,10 +8,14 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { FilterOrderDto } from './dto/filter-order.dto';
+import { OrderStatus } from './order-status.enum';
 
 @Controller('orders')
 export class OrdersController {
@@ -19,18 +23,31 @@ export class OrdersController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  create(@Body() createOrderDto: CreateOrderDto) {
+  create(
+    @Body() createOrderDto: CreateOrderDto,
+  ): Promise<{
+    orderId: number;
+    status: OrderStatus;
+    mealId: number;
+    restaurantId: number;
+  }> {
     return this.ordersService.createOrder(createOrderDto);
   }
 
   @Get()
-  findAll() {
-    return this.ordersService.findAll();
+  getOrders(
+    @Query('status', ValidationPipe) status: OrderStatus,
+    @Query('restaurantId', ParseIntPipe) restaurantId: number,
+  ) {
+    const filterOrderDto = new FilterOrderDto();
+    filterOrderDto.status = status;
+    filterOrderDto.restaurantId = restaurantId;
+    return this.ordersService.getOrders(filterOrderDto);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.ordersService.findOne(id);
   }
 
   @Patch(':id')

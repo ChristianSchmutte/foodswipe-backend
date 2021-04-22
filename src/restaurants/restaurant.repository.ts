@@ -39,7 +39,7 @@ export class RestaurantRepository extends Repository<Restaurant> {
     if (!user || user.password !== password) {
       throw new UnauthorizedException('Invalid Credentials');
     }
-    console.log(user.meals);
+
     return user;
   }
 

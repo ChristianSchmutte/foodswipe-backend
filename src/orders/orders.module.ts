@@ -10,15 +10,13 @@ import { MealRepository } from 'src/meals/meal.repository';
 import { RestaurantsModule } from 'src/restaurants/restaurants.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Order]), MealsModule, RestaurantsModule],
-  controllers: [OrdersController],
-  providers: [
-    OrdersService,
-    OrderRepository,
-    MealsService,
-    MealRepository,
+  imports: [
+    TypeOrmModule.forFeature([OrderRepository]),
+    MealsModule,
     RestaurantsModule,
   ],
+  controllers: [OrdersController],
+  providers: [OrdersService, MealsService, MealRepository, RestaurantsModule],
   exports: [OrdersService],
 })
 export class OrdersModule {}

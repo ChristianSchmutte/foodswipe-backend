@@ -1,8 +1,10 @@
 import { InternalServerErrorException } from '@nestjs/common';
+import { stat } from 'node:fs';
 import { Meal } from 'src/meals/entities/meal.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { FilterOrderDto } from './dto/filter-order.dto';
 import { Order } from './entities/order.entity';
 import { OrderStatus } from './order-status.enum';
 
@@ -52,6 +54,22 @@ export class OrderRepository extends Repository<Order> {
       };
     } catch (error) {
       throw new InternalServerErrorException('Internal Server Error 2');
+    }
+  }
+
+  async getOrders(filterOrderDto: FilterOrderDto): Promise<Order[]> {
+    const query = this.createQueryBuilder('order');
+    const { status, restaurantId } = filterOrderDto;
+    query.andWhere('order.restaurantId = :restaurantId', { restaurantId });
+
+    if (status) {
+      query.andWhere('order.status = :status', { status });
+    }
+    try {
+      const orders = await query.getMany();
+      return orders;
+    } catch (error) {
+      throw new InternalServerErrorException('Internal Server Error');
     }
   }
 }
