@@ -8,9 +8,9 @@ import { RestaurantsModule } from 'src/restaurants/restaurants.module';
 import { RestaurantsService } from 'src/restaurants/restaurants.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Meal]), RestaurantsModule],
+  imports: [TypeOrmModule.forFeature([MealRepository]), RestaurantsModule],
   controllers: [MealsController],
-  providers: [MealsService, MealRepository, RestaurantsService],
+  providers: [MealsService, RestaurantsService, MealRepository],
   exports: [MealsService, MealRepository],
 })
 export class MealsModule {}

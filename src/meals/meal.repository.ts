@@ -31,9 +31,13 @@ export class MealRepository extends Repository<Meal> {
 
   async getMeals(): Promise<Meal[]> {
     // TODO: query builder
-    // TODO: Error Handling
-    const meals = await Meal.find({ loadEagerRelations: true });
-    return meals;
+
+    try {
+      const meals = await Meal.find({ loadEagerRelations: true });
+      return meals;
+    } catch (error) {
+      throw new InternalServerErrorException('Internal Server Error');
+    }
   }
 
   async getMealById(id: number): Promise<Meal> {

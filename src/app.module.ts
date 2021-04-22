@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { MealsModule } from './meals/meals.module';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { OrdersModule } from './orders/orders.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { OrdersModule } from './orders/orders.module';
       synchronize: true,
     }),
     OrdersModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

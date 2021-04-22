@@ -1,12 +1,15 @@
 import { Order } from 'src/orders/entities/order.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
+import { Tag } from 'src/tags/entities/tag.entity';
 import {
   BaseEntity,
   Column,
   Entity,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -31,4 +34,8 @@ export class Meal extends BaseEntity {
 
   @OneToMany(() => Order, (o) => o.meal, { eager: false })
   orders: Order;
+
+  @ManyToMany(() => Tag, (t) => t.meals, { eager: true })
+  @JoinTable()
+  tags: Tag[];
 }

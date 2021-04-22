@@ -10,7 +10,6 @@ import {
   ValidationPipe,
   ParseIntPipe,
   Query,
-  Res,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
