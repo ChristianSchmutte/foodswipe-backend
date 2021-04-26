@@ -26,6 +26,7 @@ export class OrdersService {
     restaurantId: number;
   }> {
     const { mealId } = createOrderDto;
+    
     const meal = await this.mealsService.findOne(mealId);
     if (!meal)
       throw new NotFoundException(`Could not find meal with id: ${mealId}`);

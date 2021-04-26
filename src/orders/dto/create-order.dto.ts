@@ -46,6 +46,4 @@ export class CreateOrderDto {
   @MaxLength(200)
   comments: string;
 
-  @IsOptional()
-  tags: Tag[];
 }
