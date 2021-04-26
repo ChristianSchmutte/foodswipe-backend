@@ -41,6 +41,11 @@ export class MealRepository extends Repository<Meal> {
     }
   }
 
+  async getRestaurantMeals(restaurant: Restaurant): Promise<Meal[]> {
+    const meals = await Meal.find({ where: { restaurant }});
+    return meals;
+  }
+
   async getMealById(id: number): Promise<Meal> {
     const meal = await Meal.findOne({ id });
     if (!meal) throw new NotFoundException(`Could not find meal with id:${id}`);

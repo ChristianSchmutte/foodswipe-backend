@@ -30,6 +30,13 @@ export class MealsController {
     return this.mealsService.getMeals();
   }
 
+  @Get('restaurants/:id')
+  getRestaurantMeals(
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Meal[]> {
+    return this.mealsService.getRestaurantMeals(id);
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number): Promise<Meal> {
     return this.mealsService.findOne(id);

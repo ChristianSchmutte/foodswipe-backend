@@ -26,6 +26,11 @@ export class MealsService {
     return this.mealRepository.getMeals();
   }
 
+  async getRestaurantMeals(id: number): Promise<Meal[]> {
+    const restaurant = await this.restaurantRepository.getById(id);
+    return this.mealRepository.getRestaurantMeals(restaurant);
+  }
+
   findOne(id: number): Promise<Meal> {
     return this.mealRepository.getMealById(id);
   }

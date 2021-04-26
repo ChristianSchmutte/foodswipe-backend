@@ -39,7 +39,9 @@ export class RestaurantRepository extends Repository<Restaurant> {
     if (!user || user.password !== password) {
       throw new UnauthorizedException('Invalid Credentials');
     }
-
+    delete user.password;
+    delete user.latitude;
+    delete user.longitude;
     return user;
   }
 
